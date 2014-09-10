@@ -1,4 +1,4 @@
-jfinal-slf4j
+jfinal-shiro
 ============
 
-jfinal  slf4j  log api
+jfinal  shiro plugin
