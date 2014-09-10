@@ -1,6 +1,6 @@
 package cn.dreampie.shiro.core;
 
-import cn.dreampie.encription.EncriptionUtils;
+import cn.dreampie.encription.EncriptionKit;
 import cn.dreampie.shiro.model.User;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.SecurityUtils;
@@ -13,24 +13,20 @@ import org.apache.shiro.subject.Subject;
 /**
  * Created by wangrenhui on 14-4-24.
  */
-public class SubjectUtils {
-
-  private static SubjectUtils subjectUtils = new SubjectUtils();
+public class SubjectKit {
 
   private static String[] baseRole = new String[]{"R_ADMIN", "R_MANAGER", "R_MEMBER", "R_USER"};
 
-  private SubjectUtils() {
+  private SubjectKit() {
   }
 
-  public static SubjectUtils me() {
-    return subjectUtils;
-  }
 
-  public Subject getSubject() {
+
+  public static Subject getSubject() {
     return SecurityUtils.getSubject();
   }
 
-  public Session getSession() {
+  public static Session getSession() {
     Subject subject = SecurityUtils.getSubject();
     Session session = subject.getSession();
     if (session == null) {
@@ -46,7 +42,7 @@ public class SubjectUtils {
    * @param <T> User
    * @return T User
    */
-  public <T extends User> T getUser() {
+  public static <T extends User> T getUser() {
     Session session = getSession();
     Object user = getSubject().getPrincipals().getPrimaryPrincipal();
     if (user==null)
@@ -68,11 +64,11 @@ public class SubjectUtils {
    * @param <T>      User
    * @return bolean
    */
-  public <T extends User> boolean login(String username, String password, T user) {
+  public static <T extends User> boolean login(String username, String password, T user) {
     return login(username, password, false, user);
   }
 
-  public <T extends User> boolean login(String username, String password, boolean rememberMe, T user) {
+  public static <T extends User> boolean login(String username, String password, boolean rememberMe, T user) {
     UsernamePasswordToken token = new UsernamePasswordToken(username, password);
     try {
       token.setRememberMe(rememberMe);
@@ -89,12 +85,12 @@ public class SubjectUtils {
    * @param captchaToken token
    * @return boolean
    */
-  public boolean doCaptcha(String captchaName,String captchaToken) {
+  public static boolean doCaptcha(String captchaName,String captchaToken) {
     Session session = getSession();
     if (session.getAttribute(captchaName) != null) {
       String captcha = session.getAttribute(captchaName).toString();
       if (captchaToken != null &&
-          captcha.equalsIgnoreCase(EncriptionUtils.encrypt(captchaToken))) {
+          captcha.equalsIgnoreCase(EncriptionKit.encrypt(captchaToken))) {
         return true;
       }
     }
@@ -106,7 +102,7 @@ public class SubjectUtils {
    *
    * @return boolean
    */
-  public boolean wasLogin() {
+  public static boolean wasLogin() {
     Subject subject = getSubject();
     if (subject != null && subject.getPrincipal() != null && subject.isAuthenticated()) {
       return true;
@@ -114,7 +110,7 @@ public class SubjectUtils {
     return false;
   }
 
-  public boolean wasBaseRole(String roleValue) {
+  public static boolean wasBaseRole(String roleValue) {
 
     if (ArrayUtils.contains(baseRole, roleValue)) {
       return true;
@@ -122,11 +118,11 @@ public class SubjectUtils {
     return false;
   }
 
-  public static String[] getBaseRole() {
+  public  String[] getBaseRole() {
     return baseRole;
   }
 
-  public static void setBaseRole(String[] baseRole) {
-    SubjectUtils.baseRole = baseRole;
+  public  void setBaseRole(String[] baseRole) {
+    SubjectKit.baseRole = baseRole;
   }
 }

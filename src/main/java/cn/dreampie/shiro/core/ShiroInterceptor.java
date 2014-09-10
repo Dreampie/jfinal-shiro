@@ -54,16 +54,16 @@ public class ShiroInterceptor implements Interceptor {
     if (ahs != null && ahs.size() > 0) {
 
       // 登录前访问页面缓存
-      if (!SubjectUtils.me().wasLogin()) {
+      if (!SubjectKit.wasLogin()) {
         WebUtils.saveRequest(ai.getController().getRequest());
       }
 
       //rememberMe自动登录
-      Subject subject = SubjectUtils.me().getSubject();
+      Subject subject = SubjectKit.getSubject();
       if (!subject.isAuthenticated() && subject.isRemembered()) {
         Object principal = subject.getPrincipal();
         if (principal == null) {
-          SubjectUtils.me().getSubject().logout();
+          SubjectKit.getSubject().logout();
         }
       }
 

@@ -21,7 +21,7 @@ package cn.dreampie.shiro;
  * under the License.
  */
 
-import cn.dreampie.encription.EncriptionUtils;
+import cn.dreampie.encription.EncriptionKit;
 import cn.dreampie.shiro.exception.IncorrectCaptchaException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -191,7 +191,7 @@ public abstract class MyAuthenticatingFilter extends MyAuthenticationFilter {
         String captcha = session.getAttribute(DEFAULT_CAPTCHA_PARAM).toString();
         // String captcha = CookieUtils.getCookie(request, AppConstants.CAPTCHA_NAME);
         if (token.getCaptcha() != null &&
-            captcha.equalsIgnoreCase(EncriptionUtils.encrypt(token.getCaptcha()))) {
+            captcha.equalsIgnoreCase(EncriptionKit.encrypt(token.getCaptcha()))) {
           return;
         }
       }

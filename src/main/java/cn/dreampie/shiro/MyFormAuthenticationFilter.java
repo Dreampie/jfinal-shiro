@@ -18,8 +18,8 @@
  */
 package cn.dreampie.shiro;
 
-import cn.dreampie.ThreadLocalUtils;
-import cn.dreampie.shiro.core.SubjectUtils;
+import cn.dreampie.ThreadLocalKit;
+import cn.dreampie.shiro.core.SubjectKit;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.session.Session;
@@ -270,7 +270,7 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
                                    ServletRequest request, ServletResponse response) throws Exception {
     setFailureAttribute(request, response, e);
     issueFailureRedirect(request, response);
-    if (ThreadLocalUtils.isJson()) {
+    if (ThreadLocalKit.isJson()) {
       return false;
     } else {
       //login failed, let request continue back to the login page:
@@ -280,7 +280,7 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
 
   protected void setFailureAttribute(ServletRequest request, ServletResponse response, AuthenticationException ae) {
     String className = ae.getClass().getSimpleName();
-    if (ThreadLocalUtils.isJson()) {
+    if (ThreadLocalKit.isJson()) {
       request.setAttribute(getFailureKeyAttribute(), className);
     } else {
       Session session = getSubject(request, response).getSession();
@@ -289,8 +289,8 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
   }
 
   protected void clearFailureAttribute(ServletRequest request, ServletResponse response) {
-    if (ThreadLocalUtils.isJson()) {
-      request.setAttribute("user", SubjectUtils.me().getUser());
+    if (ThreadLocalKit.isJson()) {
+      request.setAttribute("user", SubjectKit.getUser());
       request.removeAttribute(getFailureKeyAttribute());
     } else {
       Session session = getSubject(request, response).getSession();

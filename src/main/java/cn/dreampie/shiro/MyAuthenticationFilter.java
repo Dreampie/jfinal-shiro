@@ -21,7 +21,7 @@ package cn.dreampie.shiro;
  * under the License.
  */
 
-import cn.dreampie.ThreadLocalUtils;
+import cn.dreampie.ThreadLocalKit;
 import com.jfinal.kit.JsonKit;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
@@ -126,7 +126,7 @@ public abstract class MyAuthenticationFilter extends MyAccessControlFilter {
 
 
   protected void dynaRedirect(ServletRequest request, ServletResponse response, String url) throws Exception {
-    if (ThreadLocalUtils.isJson()) {
+    if (ThreadLocalKit.isJson()) {
       Map<String, Object> parameterMap = new HashMap<String, Object>();
       Enumeration<String> attrNames = request.getAttributeNames();
       String name = "";
