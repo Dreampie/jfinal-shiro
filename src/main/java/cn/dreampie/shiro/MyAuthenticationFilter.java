@@ -21,6 +21,7 @@ package cn.dreampie.shiro;
  * under the License.
  */
 
+import cn.dreampie.ThreadLocalUtils;
 import com.jfinal.kit.JsonKit;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;

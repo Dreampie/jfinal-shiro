@@ -18,6 +18,7 @@
  */
 package cn.dreampie.shiro;
 
+import cn.dreampie.ThreadLocalUtils;
 import com.jfinal.kit.JsonKit;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;
