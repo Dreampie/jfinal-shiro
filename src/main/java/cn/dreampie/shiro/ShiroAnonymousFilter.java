@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Created by wangrenhui on 14-1-9.
  */
-public class MyAnonymousFilter extends MyFormAuthenticationFilter {
-  private static final Logger log = LoggerFactory.getLogger(MyAnonymousFilter.class);
+public class ShiroAnonymousFilter extends ShiroFormAuthenticationFilter {
+  private static final Logger log = LoggerFactory.getLogger(ShiroAnonymousFilter.class);
 
   private static final String DEFAULT_USER_NAME = "guest";
   private static final String DEFAULT_PASSWORD = "guest";

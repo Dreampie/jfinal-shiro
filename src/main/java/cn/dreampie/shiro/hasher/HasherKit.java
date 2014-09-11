@@ -6,20 +6,11 @@ import org.apache.shiro.authc.credential.PasswordService;
 /**
  * Created by wangrenhui on 14-5-5.
  */
-public class HasherUtils {
-
-  private static HasherUtils hasherUtils = new HasherUtils();
+public class HasherKit {
 
   private static PasswordService passwordService = new DefaultPasswordService();
 
-  private HasherUtils() {
-  }
-
-  public static HasherUtils me() {
-    return hasherUtils;
-  }
-
-  public HasherInfo hash(String hashText, Hasher hasher) {
+  public static HasherInfo hash(String hashText, Hasher hasher) {
     HasherInfo hasherInfo = null;
     if (hasher == Hasher.DEFAULT) {
       hasherInfo = new HasherInfo(hashText, passwordService.encryptPassword(hashText), hasher, "");
@@ -27,7 +18,7 @@ public class HasherUtils {
     return hasherInfo;
   }
 
-  public boolean match(Object submittedPlaintext, String encrypted, Hasher hasher) {
+  public static boolean match(Object submittedPlaintext, String encrypted, Hasher hasher) {
     boolean result = false;
     if (hasher == Hasher.DEFAULT) {
       result = passwordService.passwordsMatch(submittedPlaintext, encrypted);

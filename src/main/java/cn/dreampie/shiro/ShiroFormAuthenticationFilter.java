@@ -59,7 +59,7 @@ import java.util.Map;
  * @see org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter
  * @since 0.9
  */
-public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
+public class ShiroFormAuthenticationFilter extends ShiroAuthenticatingFilter {
 
   //TODO - complete JavaDoc
 
@@ -69,7 +69,7 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
   public static final String DEFAULT_PASSWORD_PARAM = "password";
   public static final String DEFAULT_REMEMBER_ME_PARAM = "rememberMe";
 
-  private static final Logger log = LoggerFactory.getLogger(MyFormAuthenticationFilter.class);
+  private static final Logger log = LoggerFactory.getLogger(ShiroFormAuthenticationFilter.class);
 
   private String usernameParam = DEFAULT_USERNAME_PARAM;
   private String passwordParam = DEFAULT_PASSWORD_PARAM;
@@ -77,7 +77,7 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
 
   private String failureKeyAttribute = DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
 
-  public MyFormAuthenticationFilter() {
+  public ShiroFormAuthenticationFilter() {
     setLoginUrl(DEFAULT_LOGIN_URL);
   }
 

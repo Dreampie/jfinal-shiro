@@ -42,8 +42,8 @@ import java.util.Map;
  *
  * @since 0.9
  */
-public abstract class MyAccessControlFilter extends PathMatchingFilter {
-  private static final Logger log = LoggerFactory.getLogger(MyAccessControlFilter.class);
+public abstract class ShiroAccessControlFilter extends PathMatchingFilter {
+  private static final Logger log = LoggerFactory.getLogger(ShiroAccessControlFilter.class);
   /**
    * Simple default login URL equal to <code>/login.jsp</code>, which can be overridden by calling the
    * {@link #setLoginUrl(String) setLoginUrl} method.

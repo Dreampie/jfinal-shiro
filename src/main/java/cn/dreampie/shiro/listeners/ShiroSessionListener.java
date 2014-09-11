@@ -6,7 +6,7 @@ import org.apache.shiro.session.SessionListener;
 /**
  * Created by wangrenhui on 14-1-4.
  */
-public class MySessionListener implements SessionListener {
+public class ShiroSessionListener implements SessionListener {
   @Override
   public void onStart(Session session) {
 

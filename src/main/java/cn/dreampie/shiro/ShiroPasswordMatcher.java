@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by wangrenhui on 14-1-3.
  */
-public class MyPasswordMatcher extends PasswordMatcher {
-  private static final Logger logger = LoggerFactory.getLogger(MyPasswordMatcher.class);
+public class ShiroPasswordMatcher extends PasswordMatcher {
+  private static final Logger logger = LoggerFactory.getLogger(ShiroPasswordMatcher.class);
 
   //    public static String Md5Encoding(String rawPassword, String salt) {
 //        Md5PasswordEncoder md5PasswordEncoder = new Md5PasswordEncoder();

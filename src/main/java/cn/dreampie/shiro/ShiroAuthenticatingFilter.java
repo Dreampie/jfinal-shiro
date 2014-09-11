@@ -44,7 +44,7 @@ import java.util.Arrays;
  *
  * @since 0.9
  */
-public abstract class MyAuthenticatingFilter extends MyAuthenticationFilter {
+public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilter {
   public static final String PERMISSIVE = "permissive";
   public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
 

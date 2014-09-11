@@ -41,7 +41,7 @@ import java.util.Map;
  *
  * @since 0.9
  */
-public abstract class MyAuthenticationFilter extends MyAccessControlFilter {
+public abstract class ShiroAuthenticationFilter extends ShiroAccessControlFilter {
 
   //TODO - complete JavaDoc
 

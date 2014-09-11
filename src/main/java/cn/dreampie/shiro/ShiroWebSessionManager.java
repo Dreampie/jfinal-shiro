@@ -25,14 +25,14 @@ import java.io.Serializable;
 /**
  * Created by wangrenhui on 14-1-5.
  */
-public class MyWebSessionManager extends DefaultWebSessionManager {
+public class ShiroWebSessionManager extends DefaultWebSessionManager {
 
-  private static final Logger log = LoggerFactory.getLogger(MyWebSessionManager.class);
+  private static final Logger log = LoggerFactory.getLogger(ShiroWebSessionManager.class);
 
   private Cookie sessionIdCookie;
   private boolean sessionIdCookieEnabled;
 
-  public MyWebSessionManager() {
+  public ShiroWebSessionManager() {
     Cookie cookie = new SimpleCookie(ShiroHttpSession.DEFAULT_SESSION_ID_NAME);
     cookie.setHttpOnly(true); //more secure, protects against XSS attacks
     this.sessionIdCookie = cookie;

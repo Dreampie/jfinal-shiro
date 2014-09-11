@@ -43,9 +43,9 @@ import java.util.Map;
  *
  * @since 1.2
  */
-public class MyLogoutFilter extends AdviceFilter {
+public class ShiroLogoutFilter extends AdviceFilter {
 
-  private static final Logger log = LoggerFactory.getLogger(MyLogoutFilter.class);
+  private static final Logger log = LoggerFactory.getLogger(ShiroLogoutFilter.class);
 
   /**
    * The default redirect URL to where the user will be redirected after logout.  The value is {@code "/"}, Shiro's
