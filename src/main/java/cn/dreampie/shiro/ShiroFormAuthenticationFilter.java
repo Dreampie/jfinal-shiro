@@ -18,7 +18,7 @@
  */
 package cn.dreampie.shiro;
 
-import cn.dreampie.ThreadLocalKit;
+import cn.dreampie.web.filter.ThreadLocalKit;
 import cn.dreampie.shiro.core.SubjectKit;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
