@@ -49,6 +49,7 @@
     <ehcache.version>2.6.6</ehcache.version>
     <servlet.version>3.1.0</servlet.version>
     <jfinal-utils.version>0.1</jfinal-utils.version>
+    <commons-beanutils.version>1.9.2</commons-beanutils.version>
   </properties>
 
   <dependencies>
@@ -93,6 +94,13 @@
       <artifactId>jfinal-utils</artifactId>
       <version>${jfinal-utils.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>${commons-beanutils.version}</version>
+    </dependency>
+
   </dependencies>
 
   <distributionManagement>
