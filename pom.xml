@@ -8,6 +8,7 @@
   <artifactId>jfinal-shiro</artifactId>
   <version>0.1</version>
   <packaging>jar</packaging>
+  <name>jfinal-shiro</name>
   <description>jfinal shiro plugins</description>
   <url>https://github.com/Dreampie/jfinal-shiro</url>
 
