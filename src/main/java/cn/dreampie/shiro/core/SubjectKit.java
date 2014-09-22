@@ -101,7 +101,7 @@ public class SubjectKit {
    *
    * @return boolean
    */
-  public static boolean wasAuthed() {
+  public static boolean isAuthed() {
     Subject subject = getSubject();
     if (subject == null || subject.getPrincipal() == null || (!subject.isAuthenticated() && !subject.isRemembered())) {
       return false;

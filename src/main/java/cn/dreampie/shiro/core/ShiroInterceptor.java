@@ -54,7 +54,7 @@ public class ShiroInterceptor implements Interceptor {
     if (ahs != null && ahs.size() > 0) {
 
       // 登录前访问页面缓存
-      if (!SubjectKit.wasAuthed()) {
+      if (!SubjectKit.isAuthed()) {
         WebUtils.saveRequest(ai.getController().getRequest());
       }
 
