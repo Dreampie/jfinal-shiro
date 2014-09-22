@@ -21,7 +21,6 @@ public class SubjectKit {
   }
 
 
-
   public static Subject getSubject() {
     return SecurityUtils.getSubject();
   }
@@ -45,7 +44,7 @@ public class SubjectKit {
   public static <T extends User> T getUser() {
     Session session = getSession();
     Object user = getSubject().getPrincipals().getPrimaryPrincipal();
-    if (user==null)
+    if (user == null)
       return null;
     else {
       T u = (T) user;
@@ -85,7 +84,7 @@ public class SubjectKit {
    * @param captchaToken token
    * @return boolean
    */
-  public static boolean doCaptcha(String captchaName,String captchaToken) {
+  public static boolean doCaptcha(String captchaName, String captchaToken) {
     Session session = getSession();
     if (session.getAttribute(captchaName) != null) {
       String captcha = session.getAttribute(captchaName).toString();
@@ -102,12 +101,12 @@ public class SubjectKit {
    *
    * @return boolean
    */
-  public static boolean wasLogin() {
+  public static boolean wasAuthed() {
     Subject subject = getSubject();
-    if (subject != null && subject.getPrincipal() != null && subject.isAuthenticated()) {
+    if (subject == null || subject.getPrincipal() == null || (!subject.isAuthenticated() && !subject.isRemembered())) {
+      return false;
+    } else
       return true;
-    }
-    return false;
   }
 
   public static boolean wasBaseRole(String roleValue) {
@@ -118,11 +117,11 @@ public class SubjectKit {
     return false;
   }
 
-  public  String[] getBaseRole() {
+  public String[] getBaseRole() {
     return baseRole;
   }
 
-  public  void setBaseRole(String[] baseRole) {
+  public void setBaseRole(String... baseRole) {
     SubjectKit.baseRole = baseRole;
   }
 }
