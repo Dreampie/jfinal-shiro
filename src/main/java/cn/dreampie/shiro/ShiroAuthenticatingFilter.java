@@ -191,7 +191,7 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
         String captcha = session.getAttribute(DEFAULT_CAPTCHA_PARAM).toString();
         // String captcha = CookieUtils.getCookie(request, AppConstants.CAPTCHA_NAME);
         if (token.getCaptcha() != null &&
-            captcha.equalsIgnoreCase(EncriptionKit.encrypt(token.getCaptcha()))) {
+            captcha.equalsIgnoreCase(EncriptionKit.encrypt(token.getCaptcha().toLowerCase()))) {
           return;
         }
       }
