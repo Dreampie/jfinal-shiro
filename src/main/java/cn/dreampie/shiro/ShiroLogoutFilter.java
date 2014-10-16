@@ -137,10 +137,10 @@ public class ShiroLogoutFilter extends AdviceFilter {
    * Returns the redirect URL to send the user after logout.  This default implementation ignores the arguments and
    * returns the static configured {@link #getRedirectUrl() redirectUrl} property, but this method may be overridden
    * by subclasses to dynamically construct the URL based on the request or subject if necessary.
-   * <p/>
+   *
    * Note: the Subject is <em>not</em> yet logged out at the time this method is invoked.  You may access the Subject's
    * session if one is available and if necessary.
-   * <p/>
+   *
    * Tip: if you need to access the Subject's session, consider using the
    * {@code Subject.}{@link org.apache.shiro.subject.Subject#getSession(boolean) getSession(false)} method to ensure a new session isn't created unnecessarily.
    * If a session would be created, it will be immediately stopped after logout, not providing any value and

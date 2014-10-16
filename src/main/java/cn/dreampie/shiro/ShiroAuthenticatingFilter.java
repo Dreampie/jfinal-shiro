@@ -95,7 +95,7 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
   /**
    * Returns the host name or IP associated with the current subject.  This method is primarily provided for use
    * during construction of an <code>AuthenticationToken</code>.
-   * <p/>
+   *
    * The default implementation merely returns {@link javax.servlet.ServletRequest#getRemoteHost()}.
    *
    * @param request the incoming ServletRequest
@@ -108,7 +108,7 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
   /**
    * Returns <code>true</code> if &quot;rememberMe&quot; should be enabled for the login attempt associated with the
    * current <code>request</code>, <code>false</code> otherwise.
-   * <p/>
+   *
    * This implementation always returns <code>false</code> and is provided as a template hook to subclasses that
    * support <code>rememberMe</code> logins and wish to determine <code>rememberMe</code> in a custom mannner
    * based on the current <code>request</code>.
@@ -123,7 +123,7 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
 
   /**
    * Determines whether the current subject should be allowed to make the current request.
-   * <p/>
+   *
    * The default implementation returns <code>true</code> if the user is authenticated.  Will also return
    * <code>true</code> if the {@link #isLoginRequest} returns false and the &quot;permissive&quot; flag is set.
    *
