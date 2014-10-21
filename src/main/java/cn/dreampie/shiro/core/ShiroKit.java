@@ -63,10 +63,10 @@ public class ShiroKit {
 //        authzJdbcMaps = jmaps;
 //    }
 
-  static void init(JdbcAuthzService jdbcAuthzSrc, ConcurrentMap<String, AuthzHandler> amaps,boolean isAnd) {
+  static void init(JdbcAuthzService jdbcAuthzSrc, ConcurrentMap<String, AuthzHandler> amaps, boolean isAnd) {
     jdbcAuthzService = jdbcAuthzSrc;
     authzMaps = amaps;
-    and=isAnd;
+    and = isAnd;
     //加载数据库权限
     loadJdbcAuthz();
   }
@@ -90,8 +90,7 @@ public class ShiroKit {
     for (String key : authzJdbcMaps.keySet()) {
       if (antPathMatcher.match(key, url)) {
         result.add(authzJdbcMaps.get(key));
-        if (and)
-          break;
+        if (!and) break;
       }
     }
     return result;
