@@ -41,7 +41,11 @@ import java.util.concurrent.ConcurrentMap;
 public class ShiroPlugin implements IPlugin {
 
   private static final String SLASH = "/";
-
+  /**
+   * 匹配到多个url时false  表示 只需要第一个匹配到的权限匹配  true表示匹配到多个 就必须多个权限
+   * 如/a/b  可以匹配到/a/** 和/a/b** 两个权限 匹配到一个就算通过  还是两个权限都需要才通过？
+   */
+  private boolean isAnd = false;
   /**
    * Shiro的几种访问控制注解
    */
@@ -70,6 +74,12 @@ public class ShiroPlugin implements IPlugin {
   public ShiroPlugin(Routes routes, JdbcAuthzService jdbcAuthzService) {
     this.routes = routes;
     this.jdbcAuthzService = jdbcAuthzService;
+  }
+
+  public ShiroPlugin(Routes routes, JdbcAuthzService jdbcAuthzService, boolean isAnd) {
+    this.routes = routes;
+    this.jdbcAuthzService = jdbcAuthzService;
+    this.isAnd = isAnd;
   }
 
   /**
@@ -123,7 +133,7 @@ public class ShiroPlugin implements IPlugin {
       }
     }
     //注入到ShiroKit类中。ShiroKit类以单例模式运行。
-    ShiroKit.init(jdbcAuthzService,authzMaps);
+    ShiroKit.init(jdbcAuthzService, authzMaps, isAnd);
     return true;
   }
 
@@ -287,7 +297,6 @@ public class ShiroPlugin implements IPlugin {
     }
     return false;
   }
-
   /**
    * 初始化加载数据库权限
    */
