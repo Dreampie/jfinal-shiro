@@ -90,7 +90,7 @@ public class ShiroKit {
     for (String key : authzJdbcMaps.keySet()) {
       if (antPathMatcher.match(key, url)) {
         result.add(authzJdbcMaps.get(key));
-        if (!and) break;
+        if (and) break;
       }
     }
     return result;

@@ -42,8 +42,8 @@ public class ShiroPlugin implements IPlugin {
 
   private static final String SLASH = "/";
   /**
-   * 匹配到多个url时false  表示 只需要第一个匹配到的权限匹配  true表示匹配到多个 就必须多个权限
-   * 如/a/b  可以匹配到/a/** 和/a/b** 两个权限 匹配到一个就算通过  还是两个权限都需要才通过？
+   * 匹配到多个url时false 表示匹配到多个 就必须多个权限  true表示 只需要第一个匹配到的权限匹配
+   * 如/a/b  可以匹配到/a/** 和/a/b** 两个权限 匹配到一个就算通过或者两个权限都需要才通过？
    */
   private boolean isAnd = false;
   /**
