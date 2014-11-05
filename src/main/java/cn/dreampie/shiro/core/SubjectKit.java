@@ -59,15 +59,15 @@ public class SubjectKit {
    *
    * @param username 用户名
    * @param password 密码
-   * @param user     完整用户对象
-   * @param <T>      User
+   *                 //   * @param user     完整用户对象
+   *                 //   * @param <T>      User
    * @return bolean
    */
-  public static <T extends User> boolean login(String username, String password, T user) {
-    return login(username, password, false, user);
+  public static boolean login(String username, String password) {
+    return login(username, password, false);
   }
 
-  public static <T extends User> boolean login(String username, String password, boolean rememberMe, T user) {
+  public static boolean login(String username, String password, boolean rememberMe) {
     UsernamePasswordToken token = new UsernamePasswordToken(username, password);
     try {
       token.setRememberMe(rememberMe);
@@ -77,6 +77,7 @@ public class SubjectKit {
       return false;
     }
   }
+
 
   /**
    * 验证验证码
