@@ -42,7 +42,8 @@ public class SubjectKit {
    * @return T User
    */
   public static <T extends User> T getUser() {
-    Object user = getSubject().getPrincipals().getPrimaryPrincipal();
+    Subject subject = getSubject();
+    Object user = subject.getPrincipal();
     if (user == null)
       return null;
     else {
