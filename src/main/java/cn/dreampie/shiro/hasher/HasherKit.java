@@ -10,12 +10,20 @@ public class HasherKit {
 
   private static PasswordService passwordService = new DefaultPasswordService();
 
+  public static HasherInfo hash(String hashText) {
+    return hash(hashText, Hasher.DEFAULT);
+  }
+
   public static HasherInfo hash(String hashText, Hasher hasher) {
     HasherInfo hasherInfo = null;
     if (hasher == Hasher.DEFAULT) {
       hasherInfo = new HasherInfo(hashText, passwordService.encryptPassword(hashText), hasher, "");
     }
     return hasherInfo;
+  }
+
+  public static boolean match(Object submittedPlaintext, String encrypted) {
+    return match(submittedPlaintext, encrypted, Hasher.DEFAULT);
   }
 
   public static boolean match(Object submittedPlaintext, String encrypted, Hasher hasher) {
