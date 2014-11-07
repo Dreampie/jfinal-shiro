@@ -26,6 +26,7 @@ import cn.dreampie.shiro.exception.IncorrectCaptchaException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -47,18 +48,20 @@ import java.util.Arrays;
 public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilter {
   public static final String PERMISSIVE = "permissive";
   public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
+  public static boolean useCaptcha = true;
 
   //TODO - complete JavaDoc
 
   protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-    CaptchaUsernamePasswordToken token = createToken(request, response);
+    UsernamePasswordToken token = createToken(request, response);
     if (token == null) {
       String msg = "createToken method implementation returned null. A valid non-null AuthenticationToken " +
           "must be created in order to execute a login attempt.";
       throw new IllegalStateException(msg);
     }
     try {
-      doCaptchaValidate(token);
+      if (useCaptcha)
+        doCaptchaValidate((CaptchaUsernamePasswordToken) token);
       Subject subject = getSubject(request, response);
       subject.login(token);
       return onLoginSuccess(token, subject, request, response);
@@ -68,18 +71,27 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
     }
   }
 
-  protected abstract CaptchaUsernamePasswordToken createToken(ServletRequest request, ServletResponse response) throws Exception;
+  protected abstract UsernamePasswordToken createToken(ServletRequest request, ServletResponse response) throws Exception;
 
-  protected CaptchaUsernamePasswordToken createToken(String username, String password,
-                                                     ServletRequest request, ServletResponse response) {
+  protected UsernamePasswordToken createToken(String username, String password,
+                                              ServletRequest request, ServletResponse response) {
     boolean rememberMe = isRememberMe(request);
     String host = getHost(request);
     return createToken(username, password, rememberMe, host);
   }
 
-  protected CaptchaUsernamePasswordToken createToken(String username, String password,
-                                                     boolean rememberMe, String host) {
-    return new CaptchaUsernamePasswordToken(username, password, rememberMe, host);
+  protected UsernamePasswordToken createToken(String username, String password,
+                                              boolean rememberMe, String host) {
+    return new UsernamePasswordToken(username, password, rememberMe, host);
+  }
+
+
+  // 创建 Token
+  protected UsernamePasswordToken createToken(String username, String password, String captcha,
+                                              ServletRequest request, ServletResponse response) {
+    boolean rememberMe = isRememberMe(request);
+    String host = getHost(request);
+    return new CaptchaUsernamePasswordToken(username, password, rememberMe, host, captcha);
   }
 
   protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
@@ -95,7 +107,7 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
   /**
    * Returns the host name or IP associated with the current subject.  This method is primarily provided for use
    * during construction of an <code>AuthenticationToken</code>.
-   *
+   * <p/>
    * The default implementation merely returns {@link javax.servlet.ServletRequest#getRemoteHost()}.
    *
    * @param request the incoming ServletRequest
@@ -108,7 +120,7 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
   /**
    * Returns <code>true</code> if &quot;rememberMe&quot; should be enabled for the login attempt associated with the
    * current <code>request</code>, <code>false</code> otherwise.
-   *
+   * <p/>
    * This implementation always returns <code>false</code> and is provided as a template hook to subclasses that
    * support <code>rememberMe</code> logins and wish to determine <code>rememberMe</code> in a custom mannner
    * based on the current <code>request</code>.
@@ -123,7 +135,7 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
 
   /**
    * Determines whether the current subject should be allowed to make the current request.
-   *
+   * <p/>
    * The default implementation returns <code>true</code> if the user is authenticated.  Will also return
    * <code>true</code> if the {@link #isLoginRequest} returns false and the &quot;permissive&quot; flag is set.
    *
@@ -171,15 +183,6 @@ public abstract class ShiroAuthenticatingFilter extends ShiroAuthenticationFilte
     return WebUtils.getCleanParam(request, DEFAULT_CAPTCHA_PARAM);
   }
 
-  // 创建 Token
-  protected CaptchaUsernamePasswordToken createToken(String username, String password, String captcha,
-                                                     ServletRequest request, ServletResponse response) {
-
-    boolean rememberMe = isRememberMe(request);
-    String host = getHost(request);
-
-    return new CaptchaUsernamePasswordToken(username, password, rememberMe, host, captcha);
-  }
 
   // 验证码校验
   protected void doCaptchaValidate(CaptchaUsernamePasswordToken token) {
