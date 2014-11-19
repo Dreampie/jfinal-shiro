@@ -18,7 +18,7 @@
  */
 package cn.dreampie.shiro;
 
-import cn.dreampie.web.filter.ThreadLocalKit;
+import cn.dreampie.web.ReturnKit;
 import com.jfinal.kit.JsonKit;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;
@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -81,7 +82,7 @@ public class ShiroLogoutFilter extends AdviceFilter {
     } catch (SessionException ise) {
       log.debug("Encountered session exception during logout.  This can generally safely be ignored.", ise);
     }
-    if (ThreadLocalKit.isJson()) {
+    if (ReturnKit.isJson((HttpServletRequest) request)) {
       Map<String, Object> parameterMap = new HashMap<String, Object>();
       Enumeration<String> attrNames = request.getAttributeNames();
       String name = "";

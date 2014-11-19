@@ -18,8 +18,8 @@
  */
 package cn.dreampie.shiro;
 
-import cn.dreampie.web.filter.ThreadLocalKit;
 import cn.dreampie.shiro.core.SubjectKit;
+import cn.dreampie.web.ReturnKit;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -265,18 +265,20 @@ public class ShiroFormAuthenticationFilter extends ShiroAuthenticatingFilter {
 
   protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
                                    ServletRequest request, ServletResponse response) throws Exception {
+    boolean returnJson = ReturnKit.isJson((HttpServletRequest) request);
 //    setUserAttribute(request, response);
-    clearFailureAttribute(request, response);
-    issueSuccessRedirect(request, response);
+    clearFailureAttribute(request, response, returnJson);
+    issueSuccessRedirect(request, response, returnJson);
     //we handled the success redirect directly, prevent the chain from continuing:
     return false;
   }
 
   protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
                                    ServletRequest request, ServletResponse response) throws Exception {
-    setFailureAttribute(request, response, e);
-    issueFailureRedirect(request, response);
-    if (ThreadLocalKit.isJson()) {
+    boolean returnJson = ReturnKit.isJson((HttpServletRequest) request);
+    setFailureAttribute(request, response, returnJson, e);
+    issueFailureRedirect(request, response, returnJson);
+    if (returnJson) {
       return false;
     } else {
       //login failed, let request continue back to the login page:
@@ -284,9 +286,9 @@ public class ShiroFormAuthenticationFilter extends ShiroAuthenticatingFilter {
     }
   }
 
-  protected void setFailureAttribute(ServletRequest request, ServletResponse response, AuthenticationException ae) {
+  protected void setFailureAttribute(ServletRequest request, ServletResponse response, boolean returnJson, AuthenticationException ae) {
     String className = ae.getClass().getSimpleName();
-    if (ThreadLocalKit.isJson()) {
+    if (returnJson) {
       request.setAttribute(getFailureKeyAttribute(), className);
     } else {
       Session session = getSubject(request, response).getSession();
@@ -294,8 +296,8 @@ public class ShiroFormAuthenticationFilter extends ShiroAuthenticatingFilter {
     }
   }
 
-  protected void clearFailureAttribute(ServletRequest request, ServletResponse response) {
-    if (ThreadLocalKit.isJson()) {
+  protected void clearFailureAttribute(ServletRequest request, ServletResponse response, boolean returnJson) {
+    if (returnJson) {
       request.setAttribute("user", SubjectKit.getUser());
       request.removeAttribute(getFailureKeyAttribute());
     } else {

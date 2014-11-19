@@ -21,13 +21,14 @@ package cn.dreampie.shiro;
  * under the License.
  */
 
-import cn.dreampie.web.filter.ThreadLocalKit;
+import cn.dreampie.web.ReturnKit;
 import com.jfinal.kit.JsonKit;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -53,7 +54,7 @@ public abstract class ShiroAuthenticationFilter extends ShiroAccessControlFilter
    * Returns the success url to use as the default location a user is sent after logging in.  Typically a redirect
    * after login will redirect to the originally request URL; this property is provided mainly as a fallback in case
    * the original request URL is not available or not specified.
-   *
+   * <p/>
    * The default value is {@link #DEFAULT_SUCCESS_URL}.
    *
    * @return the success url to use as the default location a user is sent after logging in.
@@ -66,7 +67,7 @@ public abstract class ShiroAuthenticationFilter extends ShiroAccessControlFilter
    * Sets the default/fallback success url to use as the default location a user is sent after logging in.  Typically
    * a redirect after login will redirect to the originally request URL; this property is provided mainly as a
    * fallback in case the original request URL is not available or not specified.
-   *
+   * <p/>
    * The default value is {@link #DEFAULT_SUCCESS_URL}.
    *
    * @param successUrl the success URL to redirect the user to after a successful login.
@@ -90,7 +91,7 @@ public abstract class ShiroAuthenticationFilter extends ShiroAccessControlFilter
 
   /**
    * Determines whether the current subject is authenticated.
-   *
+   * <p/>
    * The default implementation {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) acquires}
    * the currently executing Subject and then returns
    * {@link org.apache.shiro.subject.Subject#isAuthenticated() subject.isAuthenticated()};
@@ -111,22 +112,22 @@ public abstract class ShiroAuthenticationFilter extends ShiroAccessControlFilter
    * @param response the outgoing response
    * @throws Exception if there is a problem redirecting.
    */
-  protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
-    dynaRedirect(request, response, getRealSuccessUrl(request, response));
+  protected void issueSuccessRedirect(ServletRequest request, ServletResponse response, boolean returnJson) throws Exception {
+    dynaRedirect(request, response, getRealSuccessUrl(request, response), returnJson);
 //      WebUtils.redirectToSavedRequest(request, response, getRealSuccessUrl(request, response));
   }
 
 
-  protected void issueFailureRedirect(ServletRequest request, ServletResponse response) throws Exception {
+  protected void issueFailureRedirect(ServletRequest request, ServletResponse response, boolean returnJson) throws Exception {
 //    RequestDispatcher rd = request.getServletContext().getRequestDispatcher(getRealFailureUrl(request));
 //    rd.forward(request, response);
-    dynaRedirect(request, response, getRealFailureUrl(request));
+    dynaRedirect(request, response, getRealFailureUrl(request), returnJson);
 //    WebUtils.redirectToSavedRequest(request, response, getRealFailureUrl(request));
   }
 
 
-  protected void dynaRedirect(ServletRequest request, ServletResponse response, String url) throws Exception {
-    if (ThreadLocalKit.isJson()) {
+  protected void dynaRedirect(ServletRequest request, ServletResponse response, String url, boolean returnJson) throws Exception {
+    if (returnJson) {
       Map<String, Object> parameterMap = new HashMap<String, Object>();
       Enumeration<String> attrNames = request.getAttributeNames();
       String name = "";
