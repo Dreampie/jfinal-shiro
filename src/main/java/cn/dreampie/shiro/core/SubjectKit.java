@@ -47,8 +47,6 @@ public class SubjectKit {
     if (user == null)
       return null;
     else {
-      T u = (T) user;
-      u.removeNullValueAttrs();
       return (T) user;
     }
   }
