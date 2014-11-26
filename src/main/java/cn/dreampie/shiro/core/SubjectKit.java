@@ -48,7 +48,6 @@ public class SubjectKit {
       return null;
     else {
       T u = (T) user;
-      u.remove("password", "hasher", "salt");
       u.removeNullValueAttrs();
       return (T) user;
     }
