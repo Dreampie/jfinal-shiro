@@ -192,10 +192,6 @@ public class MyJdbcRealm extends AuthorizingRealm {
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
     UsernamePasswordToken userToken = (UsernamePasswordToken) token;
     User user = null;
-//    if (userToken.getUsername().equalsIgnoreCase(MyAnonymousFilter.getUsername())) {
-//      PasswordService passwordService = new DefaultPasswordService();
-//      return new SimpleAuthenticationInfo(MyAnonymousFilter.getUsername(), passwordService.encryptPassword(MyAnonymousFilter.getPassword()), getName());
-//    } else {
     String username = userToken.getUsername();
     if (ValidateKit.isEmail(username)) {
       user = User.dao.findFirstBy(" `user`.email =? AND `user`.deleted_at is null", username);
@@ -205,15 +201,11 @@ public class MyJdbcRealm extends AuthorizingRealm {
       user = User.dao.findFirstBy(" `user`.username =? AND `user`.deleted_at is null", username);
     }
     if (user != null) {
-//      Session session = SecurityUtils.getSubject().getSession();
-//      session.setAttribute(AppConstants.TEMP_USER, user);
       SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getStr("password"), getName());
-//      clearCachedAuthorizationInfo(info.getPrincipals());
       return info;
     } else {
       return null;
     }
-//    }
   }
 
   /**
