@@ -1,7 +1,7 @@
 package cn.dreampie.shiro.core;
 
 import cn.dreampie.encription.EncriptionKit;
-import cn.dreampie.shiro.model.User;
+import cn.dreampie.web.model.Model;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -41,7 +41,7 @@ public class SubjectKit {
    * @param <T> User
    * @return T User
    */
-  public static <T extends User> T getUser() {
+  public static <T extends Model> T getUser() {
     Subject subject = getSubject();
     Object user = subject.getPrincipal();
     if (user == null)

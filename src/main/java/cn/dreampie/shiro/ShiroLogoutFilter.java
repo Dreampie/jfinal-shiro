@@ -199,7 +199,6 @@ public class ShiroLogoutFilter extends AdviceFilter {
           redirectUrl = redirectUrlMap.get(key);
           break;
         }
-
       }
     }
     if (redirectUrl.isEmpty())

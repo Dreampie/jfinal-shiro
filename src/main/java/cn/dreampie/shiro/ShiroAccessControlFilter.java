@@ -321,7 +321,7 @@ public abstract class ShiroAccessControlFilter extends PathMatchingFilter {
   }
 
   /**
-   * 获取真实的登录url
+   * 获取真实退出url
    *
    * @param request the incoming <code>ServletRequest</code>
    * @return url

@@ -1,7 +1,7 @@
 package cn.dreampie.shiro;
 
 import cn.dreampie.shiro.hasher.Hasher;
-import cn.dreampie.shiro.model.User;
+import cn.dreampie.web.model.Model;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.PasswordMatcher;
@@ -29,7 +29,7 @@ public class ShiroPasswordMatcher extends PasswordMatcher {
 //        logger.debug("username:" + ((UsernamePasswordToken) token).getUsername() + ",password:" + getSubmittedPassword(token) + " - " + infoCredentials + " valid " + tokenCredentials);
 //        return infoCredentials.equals(tokenCredentials);
     boolean match = false;
-    String hasher = ((User<?>) info.getPrincipals().getPrimaryPrincipal()).get("hasher");
+    String hasher = ((Model<?>) info.getPrincipals().getPrimaryPrincipal()).get("hasher");
 
     String default_hasher = Hasher.DEFAULT.value();
     if (default_hasher.equals(hasher)) {
