@@ -423,4 +423,16 @@ RequiresRoles可以用在Controller或者方法上。可以多个roles，默认�
 //属于user或者admin之一。
 @RequiresRoles(value={"user","admin"},logical=Logical.OR)
 
+
+HasherKit  加密工具
+
+```java
+User user=new User()
+HasherInfo passwordInfo = HasherKit.hash(user.getStr("password"), Hasher.DEFAULT);
+user.set("password", passwordInfo.getHashResult());
+user.set("hasher", passwordInfo.getHasher().value());
+user.set("salt", passwordInfo.getSalt());
+
+```
+
 欢迎使用与反馈意见
