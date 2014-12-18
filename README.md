@@ -12,6 +12,10 @@ maven 引用  ${jfinal-shiro.version}替换为相应的版本如:0.2
 </dependency>
 ```
 
+
+支持不同角色登陆到不同的url，支持ajax登陆/登出，例如:[icedog](https://github.com/Dreampie/icedog)
+
+
 推荐的数据库权限表结构设计
 ```sql
 
