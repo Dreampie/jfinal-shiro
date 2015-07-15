@@ -44,7 +44,7 @@
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
-    <jfinal.version>1.8</jfinal.version>
+    <jfinal.version>2.0</jfinal.version>
     <shiro.version>1.2.3</shiro.version>
     <shiro-ehcache.version>1.2.2</shiro-ehcache.version>
     <ehcache.version>2.6.6</ehcache.version>
@@ -52,6 +52,7 @@
     <jfinal-web.version>0.2</jfinal-web.version>
     <jfinal-utils.version>0.2</jfinal-utils.version>
     <commons-beanutils.version>1.9.2</commons-beanutils.version>
+    <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
   </properties>
 
   <dependencies>

@@ -108,8 +108,8 @@ public class ShiroKit {
   /**
    * 判断是否已经存在一个相同的路径
    *
-   * @param url
-   * @return
+   * @param url url
+   * @return boolean
    */
   public static boolean hasJdbcAuthz(String url) {
     return authzJdbcMaps.containsKey(url);

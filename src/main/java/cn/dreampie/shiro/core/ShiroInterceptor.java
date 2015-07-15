@@ -16,8 +16,10 @@
 package cn.dreampie.shiro.core;
 
 import cn.dreampie.shiro.core.handler.AuthzHandler;
+
 import com.jfinal.aop.Interceptor;
-import com.jfinal.core.ActionInvocation;
+import com.jfinal.aop.Invocation;
+
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.subject.Subject;
@@ -31,7 +33,7 @@ public class ShiroInterceptor implements Interceptor {
   private static final Logger log = LoggerFactory.getLogger(ShiroInterceptor.class);
 
   @Override
-  public void intercept(ActionInvocation ai) {
+  public void intercept(Invocation ai) {
 
     //路径权限 //注解权限
     List<AuthzHandler> ahs = ShiroKit.getAuthzHandler(ai.getController().getRequest(), ai.getActionKey());
@@ -48,7 +50,7 @@ public class ShiroInterceptor implements Interceptor {
    * @param ahs
    * @return
    */
-  private boolean assertNoAuthorized(ActionInvocation ai, List<AuthzHandler> ahs) {
+  private boolean assertNoAuthorized(Invocation ai, List<AuthzHandler> ahs) {
 
     // 存在访问控制处理器。
     if (ahs != null && ahs.size() > 0) {

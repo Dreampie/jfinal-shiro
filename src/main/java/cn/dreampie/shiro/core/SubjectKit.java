@@ -57,7 +57,7 @@ public class SubjectKit {
    * @param username 用户名
    * @param password 密码
    *                 //   * @param user     完整用户对象
-   *                 //   * @param <T>      User
+   *                 //   * @param T      User
    * @return bolean
    */
   public static boolean login(String username, String password) {
@@ -78,7 +78,7 @@ public class SubjectKit {
 
   /**
    * 验证验证码
-   *
+   *@param	captchaName	captchaName
    * @param captchaToken token
    * @return boolean
    */
